@@ -1,0 +1,32 @@
+﻿@page "/contacts"
+@using TekChat.Shared
+@inject HttpClient Http
+
+<PageTitle>Weather forecast</PageTitle>
+
+<div class="col-12">
+
+    @foreach (var contact in ContactList)
+    {
+        <a>@contact.FirstName <span> </span> @contact.LastName</a>
+    }
+</div>
+
+@code {
+    private WeatherForecast[]? forecasts;
+
+    private List<Contact> ContactList { get; set; } = new List<Contact>();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+        ContactList.Add(new Contact(1, "Edward", "Adjei"));
+        ContactList.Add(new Contact(2, "Shantel", "Mirekua"));
+        ContactList.Add(new Contact(3, "Matthew", "Antiaye"));
+        ContactList.Add(new Contact(4, "Erica", "Korang"));
+        ContactList.Add(new Contact(5, "George", "Kwaku"));
+        ContactList.Add(new Contact(6, "Eric", "Kwasi"));
+
+    }
+}
